@@ -4,6 +4,8 @@ require('./assets/posts.css');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
-var App = require('./components/layout/App.jsx');
+var Router = require('react-router').Router;
+var routes = require('./config/routes.jsx');
+var createBrowserHistory = require('history/lib/createBrowserHistory');
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(<Router history={createBrowserHistory()}>{routes}</Router>, document.getElementById('root'));
