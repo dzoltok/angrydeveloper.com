@@ -6,9 +6,17 @@ module.exports = React.createClass({
     return { data: [] };
   },
   componentDidMount: function() {
-    this.setState({
-      data: [{id: 2, title: 'Front-end defined post', body: 'Not actually real'}]
-    });
+    // this.setState({
+    //   data: [{id: 2, title: 'Front-end defined post', body: 'Not actually real'}]
+    // });
+    this.readPostsFromAPI();
+  },
+  readPostsFromAPI: function() {
+    this.props.readFromAPI(this.props.origin + '/posts', function(posts) {
+      this.setState({
+        data: posts
+      });
+    }.bind(this));
   },
   render: function() {
     return (
