@@ -1,7 +1,11 @@
-var React = require('react');
+import React from 'react';
 
-module.exports = React.createClass({
-  render: function() {
+export default class Post extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     return (
       <div className="post">
         <h2>{this.props.title}</h2>
@@ -9,4 +13,9 @@ module.exports = React.createClass({
       </div>
     )
   }
-});
+}
+
+Post.propTypes = {
+  title: React.PropTypes.string,
+  body: React.PropTypes.string
+};

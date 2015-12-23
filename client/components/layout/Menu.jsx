@@ -1,8 +1,13 @@
-var React = require('react');
-var Link = require('react-router').Link;
+import React from 'react';
 
-module.exports = React.createClass({
-  render: function() {
+import { Link } from 'react-router';
+
+export default class Menu extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     return (
       <div id="menu">
         <span id="menu-link" onClick={this.props.sendMenuClick}><span></span></span>
@@ -18,4 +23,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}

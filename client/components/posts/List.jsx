@@ -1,8 +1,13 @@
-var React = require('react');
-var Post = require('./Post.jsx');
+import React from 'react';
 
-module.exports = React.createClass({
-  render: function() {
+import Post from './Post.jsx';
+
+export default class PostList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     var posts = this.props.data.map(function(post) {
       return (
         <Post key={post.id} title={post.title} body={post.body} />
@@ -15,4 +20,8 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}
+
+PostList.propTypes = {
+  data: React.PropTypes.array
+};

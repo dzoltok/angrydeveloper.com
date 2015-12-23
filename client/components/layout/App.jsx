@@ -1,28 +1,20 @@
-var React = require('react');
-var Reqwest = require('reqwest');
+import React from 'react';
+import Reqwest from 'reqwest';
 
-var Menu = require('./Menu.jsx');
-var PostsView = require('../posts/View.jsx');
+import Menu from './Menu.jsx';
 
-// var RouteHandler = require('react-router').RouteHandler;
+export default class App extends React.Component {
 
-module.exports = React.createClass({
-  getDefaultProps: function() {
-    return {
-      origin: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
-    };
-  },
-  getInitialState: function() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       showMenu: false
     };
-  },
-  handleMenuClick: function() {
-    this.setState({
-      showMenu: !this.state.showMenu
-    });
-  },
-  readFromAPI: function(url, success) {
+    this._handleMenuClick = this._handleMenuClick.bind(this);
+    this._readFromAPI = this._readFromAPI.bind(this);
+  }
+
+  _readFromAPI(url, success) {
     Reqwest({
       url: url,
       type: 'json',
@@ -34,17 +26,31 @@ module.exports = React.createClass({
         location = '/';
       }
     });
-  },
-  render: function() {
+  }
+
+  _handleMenuClick() {
+    this.setState({
+      showMenu: !this.state.showMenu
+    });
+  }
+
+  render() {
     var menu = this.state.showMenu ? 'show-menu' : 'hide-menu';
 
     return (
       <div id="app" className={menu}>
-        <Menu sendMenuClick={this.handleMenuClick} />
+        <Menu sendMenuClick={this._handleMenuClick} />
         <div id="content">
-          <PostsView origin={this.props.origin} readFromAPI={this.readFromAPI} />
+          {this.props.children && React.cloneElement(this.props.children, {
+            origin: this.props.origin,
+            readFromAPI: this._readFromAPI
+          })}
         </div>
       </div>
     );
   }
-});
+};
+
+App.defaultProps = {
+  origin: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
+};

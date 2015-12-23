@@ -1,7 +1,11 @@
-var React = require('react');
+import React from 'react';
 
-module.exports = React.createClass({
-  render: function() {
+export default class AboutView extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
     return (
       <div id="about-view">
         <h1>About</h1>
@@ -9,4 +13,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}

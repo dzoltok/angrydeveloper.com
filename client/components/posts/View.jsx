@@ -1,28 +1,33 @@
-var React = require('react');
-var PostsList = require('./List.jsx');
+import React from 'react';
 
-module.exports = React.createClass({
-  getInitialState: function() {
-    return { data: [] };
-  },
-  componentDidMount: function() {
-    // this.setState({
-    //   data: [{id: 2, title: 'Front-end defined post', body: 'Not actually real'}]
-    // });
-    this.readPostsFromAPI();
-  },
-  readPostsFromAPI: function() {
+import PostList from './List.jsx';
+
+export default class PostView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    };
+    this._readPostsFromAPI = this._readPostsFromAPI.bind(this);
+  }
+
+  componentDidMount() {
+    this._readPostsFromAPI()
+  }
+
+  _readPostsFromAPI() {
     this.props.readFromAPI(this.props.origin + '/posts', function(posts) {
       this.setState({
         data: posts
       });
     }.bind(this));
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <div className="posts-view">
-        <PostsList data={this.state.data} />
+        <PostList data={this.state.data} />
       </div>
-    )
+    );
   }
-});
+}
