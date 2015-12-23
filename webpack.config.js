@@ -6,8 +6,10 @@ module.exports = {
   },
   module: {
     loaders: [
+      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel', query: { presets: [ 'react', 'es2015' ] } },
       { test: /\.css$/, loader: 'style!css' },
-      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel', query: { presets: [ 'react', 'es2015' ] } }
+      { test: /\.less$/, loader: 'style!css!less' },
+      { test: /\.scss$/, loader: 'style!css!sass' }
     ]
   },
   plugins: [],
