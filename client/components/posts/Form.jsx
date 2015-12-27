@@ -15,6 +15,7 @@ export default class PostForm extends React.Component {
       return;
     }
     if (this.props.signedIn) {
+      this.props.optimisticUpdate({id: 'fake-id', title: title, body: body, user: this.props.currentUser});
       this.props.writePostToAPI(JSON.stringify({post: {title: title, body: body}}));
       this.refs.title.value = '';
       this.refs.title.blur();
@@ -38,5 +39,7 @@ export default class PostForm extends React.Component {
 
 PostForm.propTypes = {
   signedIn: React.PropTypes.bool,
-  writePostToAPI: React.PropTypes.func
+  currentUser: React.PropTypes.object,
+  writePostToAPI: React.PropTypes.func,
+  optimisticUpdate: React.PropTypes.func,
 };
