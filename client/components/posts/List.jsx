@@ -10,7 +10,7 @@ export default class PostList extends React.Component {
   render() {
     var posts = this.props.data.map(function(post) {
       return (
-        <Post key={post.id} title={post.title} body={post.body} />
+        <Post key={post.id} title={post.title} body={post.body} author={post.user.handle}/>
       );
     });
 

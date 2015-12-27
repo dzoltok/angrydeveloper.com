@@ -17,6 +17,7 @@ export default class App extends React.Component {
     };
     this._handleMenuClick = this._handleMenuClick.bind(this);
     this._readFromAPI = this._readFromAPI.bind(this);
+    this._writeToAPI = this._writeToAPI.bind(this);
     this._getCurrentUserFromAPI = this._getCurrentUserFromAPI.bind(this);
   }
 
@@ -41,9 +42,25 @@ export default class App extends React.Component {
 
   _readFromAPI(url, success) {
     Reqwest({
+      method: 'get',
       url: url,
       type: 'json',
-      method: 'get',
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: success,
+      error: function(error) {
+        console.error(url, error['response']);
+        location = '/';
+      }
+    });
+  }
+
+  _writeToAPI(method, url, data, success) {
+    Reqwest({
+      method: method,
+      url: url,
+      data: data,
+      type: 'json',
       contentType: 'application/json',
       headers: {'Authorization': sessionStorage.getItem('jwt')},
       success: success,
@@ -70,7 +87,9 @@ export default class App extends React.Component {
           {this.props.children && React.cloneElement(this.props.children, {
             origin: this.props.origin,
             readFromAPI: this._readFromAPI,
-            signedIn: this.state.signedIn
+            writeToAPI: this._writeToAPI,
+            signedIn: this.state.signedIn,
+            currentUser: this.state.currentUser
           })}
         </div>
       </div>

@@ -10,6 +10,7 @@ export default class Post extends React.Component {
       <div className="post">
         <h2>{this.props.title}</h2>
         <p>{this.props.body}</p>
+        <p>By {this.props.author}</p>
       </div>
     )
   }
