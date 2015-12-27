@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   get 'access_token', to: 'tokens#access_token'
 
   resources :posts, only: [ :index, :create, :show ]
+
+  # Default catch-all route
+  match '*all', to: 'application#index', via: [:get]
 end
