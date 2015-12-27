@@ -10,3 +10,8 @@ gem 'pg'
 # Added for authentication via Twitter OAuth & JSON Web Tokens
 gem 'oauth'
 gem 'jwt'
+
+# Required for Heroku hosting
+group :production do
+  gem 'rails_12factor'
+end
